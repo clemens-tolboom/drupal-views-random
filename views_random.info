@@ -1,1 +1,8 @@
 name = Views Random
+description = Displays random rows (selected with JS) one after another.
+core = 7.x
+package = Views
+
+dependencies[] = views
+
+files[] = plugins/views_random_style_unformatted.inc

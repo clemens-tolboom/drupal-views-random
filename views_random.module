@@ -18,11 +18,17 @@ function views_random_preprocess_views_view(&$vars) {
   $display_id = $vars['display_id'];
 
   if ($view->query->pager->plugin_name == 'views_random') {
-    drupal_add_js(drupal_get_path('module', 'views_random') . '/js/views-random.js');
+    $path = drupal_get_path('module', 'views_random');
+
+    drupal_add_css($path . '/css/views-random.css');
+    drupal_add_js($path . '/js/views-random.js');
+
     drupal_add_js(array('views_random' => array(
       $name => array(
         $display_id => $view->query->pager->options['items']
       )
     )), 'setting');
   }
+
+  $vars['classes_array'][] = 'views-random-hide';
 }

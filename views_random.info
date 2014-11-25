@@ -1,5 +1,5 @@
 name = Views Random
-description = Displays random items (selected with JS).
+description = Enables you to show cached views results randomly.
 core = 7.x
 package = Views
 

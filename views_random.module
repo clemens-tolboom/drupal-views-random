@@ -28,7 +28,7 @@ function views_random_preprocess_views_view(&$vars) {
         $display_id => $view->query->pager->options['items']
       )
     )), 'setting');
+    
+    $vars['classes_array'][] = 'views-random-hide';
   }
-
-  $vars['classes_array'][] = 'views-random-hide';
 }

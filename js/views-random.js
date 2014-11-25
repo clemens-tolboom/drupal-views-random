@@ -1,16 +1,20 @@
 (function ($) {
   Drupal.behaviors.viewsRandom = {
     attach: function(context, settings) {
-      var _getRandom = function(arr, n) {
-        var result = new Array(n),
-          len = arr.length,
+      var _getRandomKeys = function(items, count) {
+        var keys = Object.keys(items).filter(function(key) {
+          return !isNaN(key); // Is numeric.
+        });
+
+        var result = new Array(count),
+          len = keys.length,
           taken = new Array(len);
 
-        if (n > len) return arr;
+        if (count > len) return keys;
 
-        while (n--) {
+        while (count--) {
           var x = Math.floor(Math.random() * len);
-          result[n] = arr[x in taken ? taken[x] : x];
+          result[count] = keys[x in taken ? taken[x] : x];
           taken[x] = --len;
         }
 
@@ -20,13 +24,8 @@
       $.each(settings.views_random, function(view_name, displays) {
         $.each(displays, function(display, count) {
           var view = $('.view-id-' + view_name + '.view-display-id-' + display, context);
-          var items = $('.view-content', view).children();
-
-          var keys = Object.keys(items).filter(function(key) {
-            return !isNaN(key); // Is numeric.
-          });
-
-          var lucky_keys = _getRandom(keys, count);
+          var items = $('.view-content .views-row', view);
+          var lucky_keys = _getRandomKeys(items, count);
 
           // Keep N random items and delete rest.
           $.each(items, function(key, item) {
@@ -35,7 +34,7 @@
             }
           });
 
-          //@TODO: Show the view.
+          $(view).removeClass('views-random-hide');
         });
       });
     }

@@ -43,7 +43,7 @@ Create the callback like following:
       };
     })(jQuery);
 
-Then add the callback name to JS settings:
+Then specify the callback into JS settings:
 
 
      drupal_add_js(array('views_random' => array(
@@ -59,7 +59,6 @@ Then add the callback name to JS settings:
 
 Module maintained by:
 
-- Dmitry Demenchuk (https://www.drupal.org/u/mrded)
+- [Dmitry Demenchuk](https://www.drupal.org/u/mrded)
 
-Full list of contributors
-https://www.drupal.org/node/1983206/committers
+[Full list of contributors](https://www.drupal.org/node/1983206/committers)

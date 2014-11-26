@@ -1,4 +1,7 @@
 (function ($) {
+  Drupal.viewsRandom = Drupal.viewsRandom || {};
+  Drupal.viewsRandom.callbacks = Drupal.viewsRandom.callbacks || {};
+
   Drupal.behaviors.viewsRandom = {
     attach: function(context, settings) {
       var _getRandomKeys = function(items, count) {
@@ -22,7 +25,10 @@
       };
 
       $.each(settings.views_random, function(view_name, displays) {
-        $.each(displays, function(display, count) {
+        $.each(displays, function(display, data) {
+          var count = data.count;
+          var callbacks = data.callbacks;
+
           $.each($('.view-id-' + view_name + '.view-display-id-' + display, context), function(key, view) {
             var items = $('.view-content .views-row', view);
             var lucky_keys = _getRandomKeys(items, count);
@@ -31,6 +37,14 @@
             $.each(items, function(key, item) {
               if (lucky_keys.indexOf(key.toString()) < 0) {
                 $(item).empty();
+              }
+              else {
+                // Execute callbacks.
+                $.each(callbacks, function(key, callback) {
+                  if (Drupal.viewsRandom.callbacks[callback]) {
+                    Drupal.viewsRandom.callbacks[callback](item);
+                  }
+                });
               }
             });
 

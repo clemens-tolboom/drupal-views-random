@@ -23,18 +23,19 @@
 
       $.each(settings.views_random, function(view_name, displays) {
         $.each(displays, function(display, count) {
-          var view = $('.view-id-' + view_name + '.view-display-id-' + display, context);
-          var items = $('.view-content .views-row', view);
-          var lucky_keys = _getRandomKeys(items, count);
+          $.each($('.view-id-' + view_name + '.view-display-id-' + display, context), function(key, view) {
+            var items = $('.view-content .views-row', view);
+            var lucky_keys = _getRandomKeys(items, count);
 
-          // Keep N random items and delete rest.
-          $.each(items, function(key, item) {
-            if (lucky_keys.indexOf(key.toString()) < 0) {
-              $(item).empty();
-            }
+            // Keep N random items and delete rest.
+            $.each(items, function(key, item) {
+              if (lucky_keys.indexOf(key.toString()) < 0) {
+                $(item).empty();
+              }
+            });
+
+            $(view).removeClass('views-random-hide');
           });
-
-          $(view).removeClass('views-random-hide');
         });
       });
     }

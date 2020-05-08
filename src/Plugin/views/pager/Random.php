@@ -5,15 +5,26 @@
  * Definition of views_random_pager.
  */
 
+namespace Drupal\views_random\Plugin\views\pager;
+
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\views\Plugin\views\pager\PagerPluginBase;
+use Drupal\views\Plugin\views\pager\SqlBase;
 
 /**
- * Plugin for views without pagers.
+ * The plugin to handle full pager.
  *
  * @ingroup views_pager_plugins
+ *
+ * @ViewsPager(
+ *   id = "random",
+ *   title = @Translation("Random selection"),
+ *   short_title = @Translation("Random"),
+ *   help = @Translation("Random selection from list of items"),
+ *   theme = "pager",
+ *   register_theme = FALSE
+ * )
  */
-class Random extends PagerPluginBase {
+class Random extends SqlBase {
   function summaryTitle() {
     return \Drupal::translation()->formatPlural($this->options['items'], '@count item', '@count items', ['@count' => $this->options['items']]);
   }

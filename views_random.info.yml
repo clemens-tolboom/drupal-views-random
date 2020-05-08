@@ -1,0 +1,7 @@
+name: 'Views Random'
+description: 'Enables you to show cached views results randomly.'
+core: 8.x
+package: Views
+dependencies:
+  views: 'drupal:views'
+type: module

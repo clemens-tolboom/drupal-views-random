@@ -8,7 +8,7 @@
 namespace Drupal\views_random\Plugin\views\pager;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\views\Plugin\views\pager\SqlBase;
+use Drupal\views\Plugin\views\pager\PagerPluginBase;
 
 /**
  * The plugin to handle full pager.
@@ -24,9 +24,11 @@ use Drupal\views\Plugin\views\pager\SqlBase;
  *   register_theme = FALSE
  * )
  */
-class Random extends SqlBase {
+class Random extends PagerPluginBase {
+
   function summaryTitle() {
-    return \Drupal::translation()->formatPlural($this->options['items'], '@count item', '@count items', ['@count' => $this->options['items']]);
+    return \Drupal::translation()
+                  ->formatPlural($this->options['items'], '@count item', '@count items', ['@count' => $this->options['items']]);
   }
 
   function defineOptions() {
@@ -57,4 +59,34 @@ class Random extends SqlBase {
   function useCountQuery() {
     return FALSE;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function render($input) {
+    $view_name = $this->view->id();
+    $display_name = $this->view->current_display;
+    $settings = [
+      $view_name => [
+        $display_name => [
+          'count' => 6,
+          'callbacks' => [],
+        ]
+      ]
+    ];
+    return [
+      '#theme' => $this->themeFunctions(),
+      '#attached' => [
+        'library' => [
+          'views_random/views-random',
+        ],
+        'drupalSettings' => [
+          'viewsRandom' => $settings,
+        ],
+      ],
+      '#parameters' => $input,
+      '#route_name' => !empty($this->view->live_preview) ? '<current>' : '<none>',
+    ];
+  }
+
 }

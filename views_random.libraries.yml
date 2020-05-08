@@ -1,0 +1,7 @@
+views-random:
+  version: 1.x
+  css:
+    theme:
+      css/views-random.css: {}
+  js:
+    js/views-random.js: {}

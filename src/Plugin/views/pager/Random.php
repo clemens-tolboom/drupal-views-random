@@ -15,12 +15,12 @@ use Drupal\views\Plugin\views\pager\PagerPluginBase;
  */
 class Random extends PagerPluginBase {
   function summaryTitle() {
-    return \Drupal::translation()->formatPlural($this->options['items'], '@count item', '@count items', array('@count' => $this->options['items']));
+    return \Drupal::translation()->formatPlural($this->options['items'], '@count item', '@count items', ['@count' => $this->options['items']]);
   }
 
   function defineOptions() {
     $options = parent::defineOptions();
-    $options['items'] = 'default' => 0];
+    $options['items'] = ['default' => 0];
 
     return $options;
   }
@@ -31,12 +31,12 @@ class Random extends PagerPluginBase {
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
 
-    $form['items'] = array(
+    $form['items'] = [
       '#title' => t('Items'),
       '#type' => 'textfield',
       '#description' => t('The number of items to display. Enter 0 for no limit.'),
       '#default_value' => $this->options['items'],
-    );
+    ];
   }
 
   function use_pager() {

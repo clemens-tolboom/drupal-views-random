@@ -24,19 +24,20 @@
         return result;
       };
 
-      $.each(settings.views_random, function(view_name, displays) {
+      $.each(settings.viewsRandom, function(view_name, displays) {
         $.each(displays, function(display, data) {
           var count = data.count;
           var callbacks = data.callbacks;
-
-          $.each($('.view-id-' + view_name + '.view-display-id-' + display, context), function(key, view) {
+          // view-id-frontpage view-display-id-page_1
+          let id = '.view-id-' + view_name + '.view-display-id-' + display;
+          $.each($(id, context), function(key, view) {
             var items = $('.view-content .views-row', view);
             var lucky_keys = _getRandomKeys(items, count);
 
             // Keep N random items and delete rest.
             $.each(items, function(key, item) {
               if (lucky_keys.indexOf(key.toString()) < 0) {
-                $(item).empty();
+                $(item).remove();
               }
               else {
                 // Execute callbacks.

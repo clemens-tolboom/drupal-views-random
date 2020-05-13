@@ -69,7 +69,7 @@ class Random extends PagerPluginBase {
     $settings = [
       $view_name => [
         $display_name => [
-          'count' => 6,
+          'count' => $this->options['items'],
           'callbacks' => [],
         ]
       ]

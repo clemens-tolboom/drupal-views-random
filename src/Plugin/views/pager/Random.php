@@ -84,6 +84,8 @@ class Random extends PagerPluginBase {
           'viewsRandom' => $settings,
         ],
       ],
+      // Make pager.html.twig happy.
+      '#element' => 0,
       '#parameters' => $input,
       '#route_name' => !empty($this->view->live_preview) ? '<current>' : '<none>',
     ];
